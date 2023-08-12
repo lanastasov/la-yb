@@ -24,14 +24,39 @@ func main() {
         
 		// Run the "lux" executable with the link as an argument
 		cmd := exec.Command("lux", link)
-		err := cmd.Run()
 
+        // Create pipes to capture the standard output and standard error
+		stdout, err := cmd.StdoutPipe()
+		if err != nil {
+			fmt.Println("Error creating stdout pipe:", err)
+			return
+		}
+		stderr, err := cmd.StderrPipe()
+		if err != nil {
+			fmt.Println("Error creating stderr pipe:", err)
+			return
+		}
+        
+        // Start the command
+		err = cmd.Start()
 		if err != nil {
 			fmt.Printf("Error executing 'lux' with link %s: %v\n", link, err)
 		}
 
+		// Create a combined reader to read both standard output and standard error
+		reader := io.MultiReader(stdout, stderr)
+
+		// Display the output from the command
+		scanner := bufio.NewScanner(reader)
+		for scanner.Scan() {
+			fmt.Println(scanner.Text())
+		}
+
         // Wait for the command to complete before proceeding to the next link
-		cmd.Wait()
+		err = cmd.Wait()
+        if err != nil {
+			fmt.Printf("Error executing 'lux' with link %s: %v\n", link, err)
+		}
 	}
 
 	if err := scanner.Err(); err != nil {
