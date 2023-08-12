@@ -23,7 +23,7 @@ func main() {
 		link := scanner.Text()
         
 		// Run the "lux" executable with the link as an argument
-		cmd := exec.Command("glux", link)
+		cmd := exec.Command("lux", link)
 		err := cmd.Run()
 
 		if err != nil {
