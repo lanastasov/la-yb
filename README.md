@@ -1,0 +1,2 @@
+- lux - should be installed before using this program
+- download files which are provided in links.txt file one by one
