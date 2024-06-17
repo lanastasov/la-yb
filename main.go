@@ -9,6 +9,7 @@ import (
 )
 
 func main() {
+	
 	// Open the text file containing links
 	filePath := "links.txt"
 	file, err := os.Open(filePath)
@@ -26,7 +27,7 @@ func main() {
 		// Run the "lux" executable with the link as an argument
 		cmd := exec.Command("lux", link)
 
-        	// Create pipes to capture the standard output and standard error
+		// Create pipes to capture the standard output and standard error
 		stdout, err := cmd.StdoutPipe()
 		if err != nil {
 			fmt.Println("Error creating stdout pipe:", err)
@@ -38,7 +39,7 @@ func main() {
 			return
 		}
         
-        	// Start the command
+		// Start the command
 		err = cmd.Start()
 		if err != nil {
 			fmt.Printf("Error executing 'lux' with link %s: %v\n", link, err)
