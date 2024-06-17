@@ -53,7 +53,7 @@ func main() {
 			fmt.Println(scanner.Text())
 		}
 
-	        // Wait for the command to complete before proceeding to the next link
+		// Wait for the command to complete before proceeding to the next link
 		err = cmd.Wait()
 	        if err != nil {
 			fmt.Printf("Error executing 'lux' with link %s: %v\n", link, err)
